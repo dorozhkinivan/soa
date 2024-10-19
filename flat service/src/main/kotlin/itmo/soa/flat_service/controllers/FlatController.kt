@@ -12,8 +12,11 @@ import itmo.soa.flat_service.exceptions.ValidationException
 import itmo.soa.flat_service.service.FlatService
 import itmo.soa.flat_service.utils.getListRequestConfig
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Min
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -38,7 +41,7 @@ class FlatController(
             .map(flatConverter::toDto)
     )
 
-    @GetMapping("/{id}")
+    @GetMapping( "/{id}")
     fun getFlat(@PathVariable("id") id: Long) : FlatDto = flatService.get(id).let(flatConverter::toDto)
 
     @GetMapping("/min-coordinates")
@@ -70,13 +73,13 @@ class FlatController(
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    fun createFlat(@RequestBody flat: FlatDto) : FlatDto {
+    fun createFlat(@RequestBody @Valid flat: FlatDto) : FlatDto {
         val entity = flatService.create(flatConverter.toEntity(flat))
         return entity.let(flatConverter::toDto)
     }
 
     @PutMapping("/{id}")
-    fun updateFlat(@PathVariable("id") id: Long, @RequestBody flat: FlatDto) : FlatDto{
+    fun updateFlat(@PathVariable("id") id: Long, @RequestBody @Valid flat: FlatDto) : FlatDto{
         val entity = flatService.update(id, flat.let(flatConverter::toEntity))
         return entity.let(flatConverter::toDto)
     }

@@ -1,24 +1,40 @@
 package itmo.soa.flat_service.dto
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
+import jakarta.validation.Valid
 import java.time.LocalDateTime
+import jakarta.validation.constraints.Max
+import jakarta.validation.constraints.Min
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 
 @JacksonXmlRootElement(localName = "Flat")
 data class FlatDto(
-    val id: Long,
-    val name: String,
-    val coordinates: Coordinate,
-    val creationDate: LocalDateTime,
-    val area: Double,
-    val numberOfRooms: Int,
-    val furnish: Furnish,
+    @field:Min(1)
+    val id: Long?,
+    @field:NotBlank
+    val name: String?,
+    @field:NotNull
+    val coordinates: Coordinate?,
+    val creationDate: LocalDateTime?,
+    @field:Max(889)
+    @field:Min(0)
+    val area: Double?,
+    @field:Max(19)
+    @field:Min(0)
+    val numberOfRooms: Int?,
+    @field:NotNull
+    val furnish: Furnish?,
     val view: View?,
-    val transport: Transport,
+    @field:NotNull
+    val transport: Transport?,
     val house: HouseDto?
 )
 
 data class Coordinate(
+    @field:Min(-143)
     val x: Double,
+    @field:Min(-903)
     val y: Int,
 )
 

@@ -34,19 +34,19 @@ class FlatCriteriaRepositoryImpl(
 
         cq.where(predicate)
 
-        listRequestConfig.sortKeyToIsAscending.forEach { (key, isAscending) ->
-            val order = if (isAscending)
+        var order = listRequestConfig.sortKeyToIsAscending.map { (key, isAscending) ->
+            if (isAscending)
                 cb.asc(root.get<Any>(key))
             else
                 cb.desc(root.get<Any>(key))
-            cq.orderBy(order)
         }
-
         val sortFields = listRequestConfig.sortKeyToIsAscending.map { it.first }.toSet()
 
         if ("id" !in sortFields){
-            cq.orderBy(cb.asc(root.get<Any>("id")))
+            order = order + cb.asc(root.get<Long>("id"))
         }
+
+        cq.orderBy(order)
 
         val typedQuery = entityManager.createQuery(cq)
 

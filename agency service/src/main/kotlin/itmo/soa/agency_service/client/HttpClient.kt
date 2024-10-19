@@ -17,7 +17,7 @@ open class HttpClient @Inject constructor(
     private val xmlResolver: ObjectMapperContextResolver
 ) {
     // TODO move all envs to config @Singleton
-    private val flatServiceUrl = System.getenv("FLAT_SERVICE_LOCAL_URL") ?: "http://localhost:8080/flat-management"
+    private val flatServiceUrl = System.getenv("FLAT_SERVICE_LOCAL_URL") ?: "https://localhost:443/flat-management"
     private var client: Client? = null
 
     @PostConstruct

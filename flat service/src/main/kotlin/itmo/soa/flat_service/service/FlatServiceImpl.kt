@@ -9,6 +9,7 @@ import itmo.soa.flat_service.utils.ListRequestConfig
 import jakarta.persistence.criteria.CriteriaBuilder
 import jakarta.persistence.criteria.Root
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
@@ -46,14 +47,23 @@ class FlatServiceImpl(
     }
 
     override fun create(flatEntity: FlatEntity): FlatEntity {
-        val house = flatEntity.house?.let { houseRepository.save(it) }
+        val house = flatEntity.house?.let {
+            houseRepository.findAllByNameAndYearAndNumberOfFloorsAndNumberOfLifts(
+                name = it.name,
+                year = it.year,
+                numberOfFloors = it.numberOfFloors,
+                numberOfLifts = it.numberOfLifts
+            ).firstOrNull() ?: houseRepository.save(it)
+        }
+        flatEntity.creationDate = LocalDateTime.now()
         flatEntity.house = house
         return flatRepository.save(flatEntity)
     }
 
     override fun update(id: Long, flatEntity: FlatEntity): FlatEntity{
-        get(id)
+        val existingFlat = get(id)
         flatEntity.id = id
+        flatEntity.creationDate = existingFlat.creationDate
         return create(flatEntity)
     }
 

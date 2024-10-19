@@ -34,6 +34,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.springframework.boot:spring-boot-starter-validation") {
+        exclude(module = "spring-boot-starter-logging")
+    }
+    implementation("jakarta.validation:jakarta.validation-api:3.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -53,5 +57,5 @@ tasks.withType<Test> {
 }
 
 tasks.withType<War>() {
-    archiveFileName.set("spr.war")
+    archiveFileName.set("flat_service.war")
 }

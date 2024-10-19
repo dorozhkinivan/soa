@@ -19,11 +19,11 @@ import java.time.LocalDateTime
 data class FlatEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long?,
     val name: String,
     val coordinateX: Double,
     val coordinateY: Int,
-    val creationDate: LocalDateTime,
+    var creationDate: LocalDateTime?,
     val area: Double,
     val numberOfRooms: Int,
     @Enumerated(EnumType.STRING)

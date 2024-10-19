@@ -17,7 +17,7 @@ data class FlatDto(
     val furnish: Furnish,
     val view: View?,
     val transport: Transport,
-    val house: HouseDto?
+    val house: HouseDto? = null
 )
 
 

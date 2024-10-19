@@ -22,18 +22,6 @@ open class Controller {
         @PathParam("cheapest") cheapest: Boolean,
         @PathParam("with-balcony") withBalcony: Boolean,
     ): Response {
-//        return Response.ok(FlatDto(
-//            id = 1,
-//            area = 0.0,
-//            coordinates = Coordinate(1.0, 1),
-//            creationDate = LocalDateTime.now(),
-//            furnish = Furnish.FINE,
-//            house = null,
-//            name = "",
-//            numberOfRooms = 1,
-//            transport = Transport.NONE,
-//            view = null
-//        )).build()
         val flat = client.getFlatByParams(cheapest, if (withBalcony) 2 else 1)
         return flat?.let {
             Response.ok(it).build()

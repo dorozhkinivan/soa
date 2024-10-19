@@ -3,6 +3,7 @@ package itmo.soa.flat_service.service
 import itmo.soa.flat_service.dto.Furnish
 import itmo.soa.flat_service.model.FlatEntity
 import itmo.soa.flat_service.utils.ListRequestConfig
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service

@@ -24,15 +24,15 @@ class FlatConverter(
 
     override fun toEntity(dto: FlatDto) = FlatEntity(
         id = dto.id,
-        name = dto.name,
-        coordinateX = dto.coordinates.x,
+        name = dto.name!!,
+        coordinateX = dto.coordinates!!.x,
         coordinateY = dto.coordinates.y,
         creationDate = dto.creationDate,
-        area = dto.area,
-        numberOfRooms = dto.numberOfRooms,
-        furnish = dto.furnish,
+        area = dto.area!!,
+        numberOfRooms = dto.numberOfRooms!!,
+        furnish = dto.furnish!!,
         view = dto.view,
-        transport = dto.transport,
+        transport = dto.transport!!,
         house = dto.house?.let(houseConverter::toEntity)
     )
 }
